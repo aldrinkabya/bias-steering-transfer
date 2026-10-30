@@ -1,0 +1,17 @@
+{
+  "seed": 42,
+  "files": {
+    "extract": {
+      "n_items": 900,
+      "sha256": "d73412d79348eebd9837f04b70d5fe6d429d8a98b768d079a043f4337bc9936c"
+    },
+    "dev": {
+      "n_items": 540,
+      "sha256": "cb87c53ebd6e80126f9b96f6d3d109a40df29bb6f63f369d0ae6612bc6349e5b"
+    },
+    "test": {
+      "n_items": 2700,
+      "sha256": "ac332da511603bc6e197959f7929fe0ee5474ae815ba0f2ffac29d7737fefbde"
+    }
+  }
+}

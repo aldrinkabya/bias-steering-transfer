@@ -1,0 +1,46 @@
+batch_size: {fp16: 12, default: 16}
+
+# Layer and dose selection on the development split
+selection:
+  alphas: [0.025, 0.05, 0.1, 0.2]
+  dose_factors: [0.5, 1.0, 2.0]   # quantized models: multiples of the FP16 dose, at the FP16 layer
+  max_context_acc_drop: 0.02
+  min_committed: 30
+
+# Random directions at the main-rule settings
+random:
+  seeds: [1337, 1338, 1339]
+  all_seeds_on: [fp16, nf4, hqq3]   # elsewhere only the first seed
+
+# CS vector at the setting of the committed-stereotyping rule, with its random directions
+cs_rule:
+  mistral:
+    precisions: [fp16, nf4, hqq3]
+    random_seeds:
+      fp16: [1337, 1338, 1339]
+  llama:
+    precisions: [fp16, int8, nf4, gptq4, hqq4, hqq3, hqq2]
+    random_seeds:
+      fp16: [1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346]
+      nf4: [1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346]
+      int8: [1337, 1338, 1339]
+      gptq4: [1337, 1338, 1339]
+      hqq4: [1337, 1338, 1339]
+      hqq3: [1337, 1338, 1339]
+      hqq2: [1337, 1338, 1339]
+
+# Other doses, as multiples of the selected one (ABS: main rule, CS: committed-stereotyping rule)
+doses:
+  - {model: llama, vector: abst, factors: [0.5, 2.0], precisions: [fp16, nf4]}
+  - {model: llama, vector: cs, factors: [0.25, 0.5, 1.5], precisions: [fp16, nf4]}
+  - {model: llama, vector: abst, factors: [0.25, 0.5], precisions: [hqq3], mmlu: true}
+  - {model: llama, vector: cs, factors: [0.25, 0.5], precisions: [hqq3], mmlu: true}
+
+# Holm's correction is applied within four families: quantization, prompting and the main-rule settings;
+# the CS vector at the committed-stereotyping setting; and the two groups of Llama versions below.
+# Qwen, random directions and the other doses are not adjusted.
+holm:
+  models: [mistral, llama]
+  version_families:
+    llama_lowbit: {model: llama, precisions: [gptq4, hqq4, hqq2]}
+    llama_int8: {model: llama, precisions: [int8]}

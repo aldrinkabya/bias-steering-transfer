@@ -1,0 +1,17 @@
+mistral:
+  hf_id: mistralai/Mistral-7B-Instruct-v0.3
+  gptq_id: RedHatAI/Mistral-7B-Instruct-v0.3-GPTQ-4bit
+  layers: [12, 14, 16, 18]
+  precisions: [fp16, int8, nf4, gptq4, hqq4, hqq3, hqq2]
+
+llama:
+  hf_id: meta-llama/Llama-3.1-8B-Instruct
+  gptq_id: hugging-quants/Meta-Llama-3.1-8B-Instruct-GPTQ-INT4
+  layers: [12, 14, 16, 18]
+  precisions: [fp16, int8, nf4, gptq4, hqq4, hqq3, hqq2]
+
+qwen:
+  hf_id: Qwen/Qwen2.5-7B-Instruct
+  gptq_id: Qwen/Qwen2.5-7B-Instruct-GPTQ-Int4
+  layers: [10, 12, 14, 16]
+  precisions: [fp16, gptq4]

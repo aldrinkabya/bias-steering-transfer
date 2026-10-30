@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.env
+
+data/bbq_raw/
+checkpoints/
+results/
